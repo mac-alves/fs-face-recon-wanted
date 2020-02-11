@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}{{ perfil }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<!-- Nav -->
+<nav id="nav">
+    <a href="{%url 'index'%}" class="icon fa-home"><span>Home</span></a>
+    <a href="{%url 'perfis'%}" class="icon fa-user {%if act%}{{act}}{%endif%}"><span>Perfis</span></a>
+    <a href="{%url 'list_proc' %}" class="icon fa-list-alt"><span>Procurados</span></a>
+    <a href="{%url 'create_peril'%}" class="icon fa-plus"><span>Add Perfil</span></a>
+    <a href="{% url 'logout_user' %}" class="icon fa-sign-out"><span>Sair</span></a>
+</nav>
+<!-- Main -->
+<div id="main">
+    <!-- Me -->
+    <article id="home" class="panel intro">
+        <header>
+            {% if error_message %}
+                <p><strong>{{ error_message }}</strong></p>
+            {% endif %}
+            {% if perfil %}
+                <h1>{{ perfil.nome }}</h1>
+                <p>Idade: {{ perfil.idade }}</p>
+                <p>Genero: {{ perfil.genre }}</p>
+                <p>Email: {{ perfil.email }}</p>
+            {%if perfil.treina%}
+                <p>Treinado: Sim <span class="icon fa-check" style='color: green'></span></p>
+            {%else%}
+                <p>Treinado: Não <span class="icon fa-remove" style='color: red'></span></p>
+            {%endif%}
+            {% endif %}
+            
+            {%if not notif_procur %}
+            <br>
+            <div class="row">
+                <div class="col-3 col-6-medium">
+                    <a href="{% url 'aciona_procura' perfil.id %}"><button type="submit">Procurar</button></a>
+                </div>
+                <div class="col-3 col-6-medium">
+                    <a href="{% url 'delete_perfil' perfil.id %}"><button type="submit">Deletar</button></a>
+                </div>
+            </div>
+            {%else%}
+            <p style='color: green'>Deseja Realmete Colocar Na Lista De Pessoas Procuradas?</p>
+            <div class="row">
+                <div class="col-3 col-6-medium">
+                    <a href="{% url 'procurado' perfil.id %}"><button type="submit">Procurar</button></a>
+                </div>
+                <div class="col-3 col-6-medium">
+                    <a href="{% url 'detail' perfil.id %}"><button type="submit">Não</button></a>
+                </div>
+            </div>
+            {%endif%}
+
+            {%if msgProc %}
+                <p style='color: red'>{{msgProc}}!</p>
+            {%endif%}
+
+        </header>
+        <a href="{% url 'perfis' %}" class="jumplink pic">
+            <span class="arrow icon fa-chevron-right"><span></span></span>
+            {% if perfil.foto %}
+            <img src="{{ perfil.foto.url }}" alt="" />
+            {% else %}
+            <img src="images/me.jpg" alt="" />
+            {% endif %}
+        </a>
+    </article>
+
+{% endblock %}

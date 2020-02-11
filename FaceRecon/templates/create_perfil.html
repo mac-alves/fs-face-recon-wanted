@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Adicionar Novo Album{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<!-- Nav -->
+<nav id="nav">
+    <a href="{%url 'index'%}" class="icon fa-home"><span>Home</span></a>
+    <a href="{%url 'perfis'%}" class="icon fa-user"><span>Perfis</span></a>
+    <a href="{%url 'list_proc' %}" class="icon fa-list-alt"><span>Procurados</span></a>
+    <a href="{%url 'create_peril'%}" class="icon fa-plus {%if act%}{{act}}{%endif%}"><span>Add Perfil</span></a>
+    <a href="{% url 'logout_user' %}" class="icon fa-sign-out"><span>Sair</span></a>
+</nav>
+<!-- Main -->
+<div id="main">
+<!-- Contact -->
+<article id="contact" class="panel">
+	<header>
+		<h2>Adicionar Novo Perfil</h2>
+	</header>
+	{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+	{% endif %}
+	<form role="form" action="" method="post" enctype="multipart/form-data">
+		<div>
+			<div class="row">
+				{% csrf_token %}
+				{% include 'form_template.html' %}
+				<div class="col-12">
+					<button type="submit">Enviar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</article>
+
+{% endblock %}

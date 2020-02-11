@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %}{{ perfil }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<!-- Nav -->
+<nav id="nav">
+    <a href="{%url 'index'%}" class="icon fa-home {%if act%}{{act}}{%endif%}"><span>Home</span></a>
+    <a href="{%url 'perfis'%}" class="icon fa-user"><span>Perfis</span></a>
+    <a href="{%url 'list_proc' %}" class="icon fa-list-alt"><span>Procurados</span></a>
+    <a href="{%url 'create_peril'%}" class="icon fa-plus"><span>Add Perfil</span></a>
+    <a href="{% url 'logout_user' %}" class="icon fa-sign-out"><span>Sair</span></a>
+</nav>
+<!-- Main -->
+<div id="main">
+    <!-- Me -->
+    <article id="home" class="panel intro">
+        <header>
+            {% if perfil %}
+            <h1>{{ perfil.username }}</h1>
+            <p>{{ perfil.email }}</p>
+            {% endif %}
+        </header>
+
+        <a href="{% url 'index' %}" class="jumplink pic">
+            <span class="arrow icon fa-home"><span></span></span>
+            <img src="{% static 'assets/css/images/img.png' %}" alt="" />
+        </a>
+    </article>
+
+{% endblock %}

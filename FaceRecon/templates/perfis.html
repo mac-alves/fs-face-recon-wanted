@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<!-- Nav -->
+<nav id="nav">
+    <a href="{%url 'index'%}" class="icon fa-home"><span>Home</span></a>
+    <a href="{%url 'perfis'%}" class="icon fa-user {%if act%}{{act}}{%endif%}"><span>Perfis</span></a>
+    <a href="{%url 'list_proc' %}" class="icon fa-list-alt"><span>Procurados</span></a>
+    <a href="{%url 'create_peril'%}" class="icon fa-plus"><span>Add Perfil</span></a>
+    <a href="{% url 'logout_user' %}" class="icon fa-sign-out"><span>Sair</span></a>
+</nav>
+<!-- Main -->
+<div id="main">
+
+	<!-- Work -->
+	<article id="work" class="panel">
+		<header>
+			<h2>{{ user.username }}'s Perfis</h2>
+		</header>
+		<p>
+			Click na foto para visualizar as informações dos perfis selecionado. Cado não haja foto vá em adcionar perfil.
+		</p>
+		<section>
+			<div class="row">
+				{% if perfils %}
+				{% for perfil in perfils %}
+				<div class="col-4 col-6-medium col-12-small">
+					<a href="{% url 'detail' perfil.id %}" class="image fit"><img src="{{ perfil.foto.url }}" alt=""></a>
+				</div>
+				{% endfor %}
+				{% else %}
+				<div class="col-sm-12">
+					<br>
+					<a href="{% url 'create_peril' %}">
+						<button type="button" class="btn btn-success">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp; Add Perfil
+						</button>
+					</a>
+				</div>
+				{% endif %}
+			</div>
+		</section>
+	</article>
+
+{% endblock %}

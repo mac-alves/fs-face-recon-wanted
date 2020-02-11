@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Lista de Procurados{% endblock %}
+{% block songs_active %}active{% endblock %}
+
+{% block body %}
+<!-- Nav -->
+<nav id="nav">
+    <a href="{%url 'index'%}" class="icon fa-home"><span>Home</span></a>
+    <a href="{%url 'perfis'%}" class="icon fa-user"><span>Perfis</span></a>
+    <a href="{%url 'list_proc' %}" class="icon fa-list-alt {%if act%}{{act}}{%endif%}"><span>Procurados</span></a>
+    <a href="{%url 'create_peril'%}" class="icon fa-plus"><span>Add Perfil</span></a>
+    <a href="{% url 'logout_user' %}" class="icon fa-sign-out"><span>Sair</span></a>
+</nav>
+<!-- Main -->
+<div id="main">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Perfil</th>
+                    <th>Idade</th>
+                    <th>Genero</th>
+                    <th>Email de contato</th>
+                    <th>Telefone de Contato</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proc in proc_perf %}
+                <tr>
+                    <td>{{ proc.nome }}</td>
+                    <td>{{ proc.idade }}</td>
+                    <td>{{ proc.genre }}</td>
+                    <td>{{ proc.email }}</td>
+                    <td>{{ proc.telefone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
